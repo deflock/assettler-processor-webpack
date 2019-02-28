@@ -67,7 +67,7 @@ export function create(env, entries, paths, options = {}) {
             test: /\.mcss$/,
             use: [
                 {
-                    loader: '@deflock/assettler-webpack-processor/lib/loader/modularcss',
+                    loader: '@deflock/assettler-processor-webpack/lib/loader/modularcss',
                     options: {
                         processor: options.modularCssProcessor,
                     },
