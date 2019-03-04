@@ -70,6 +70,8 @@ export function create(env, entries, paths, options = {}) {
                     loader: '@deflock/assettler-processor-webpack/lib/loader/modularcss',
                     options: {
                         processor: options.modularCssProcessor,
+                        selectorsMapFile: options.modularSelectorsMapFile,
+                        basedir: options.modularBasedir,
                     },
                 },
             ],
@@ -201,5 +203,10 @@ export function create(env, entries, paths, options = {}) {
                 },
             },
         },
+
+        // watchOptions: {
+        //     aggregateTimeout: 2000,
+        //     ignored: ['**']
+        // }
     };
 }

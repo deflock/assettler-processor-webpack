@@ -37,16 +37,10 @@ export default class Processor extends GenericProcessor {
      * @returns {Promise<any[]>}
      */
     async process(files, params) {
-        let firstProcess = false;
-
         if (params.isWatch) {
             if (!this.webpackWatcher) {
-                firstProcess = true;
-
                 await new Promise(resolve => {
                     this.webpackWatcher = this.getWebpackCompiler().watch({
-                        aggregateTimeout: 30,
-                        ignored: /node_modules/,
                     }, (err, stats) => {
                         this.printWebpackStats(err, stats);
 
@@ -69,7 +63,7 @@ export default class Processor extends GenericProcessor {
             });
         }
         else {
-            if (this.webpackWatcher && !firstProcess) {
+            if (this.webpackWatcher) {
                 await new Promise(resolve => {
                     this.webpackWatcher.invalidate(async () => {
                         resolve();
@@ -244,7 +238,9 @@ export default class Processor extends GenericProcessor {
                 babelConfig: this.options.babelConfig,
                 pathResolver: this.pathResolver,
                 assetResolver: this.assetResolver,
-                modularCssProcessor: this.options.modularCssInnerProcessor,
+                modularCssProcessor: this.options.modularCssProcessor,
+                modularSelectorsMapFile: this.options.modularSelectorsMapFile,
+                modularBasedir: this.basedir,
             }),
         );
 
