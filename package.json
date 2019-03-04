@@ -1,6 +1,6 @@
 {
   "name": "@deflock/assettler-processor-webpack",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "homepage": "https://github.com/deflock/assettler-processor-webpack",
   "repository": "deflock/assettler-processor-webpack",
@@ -21,7 +21,7 @@
     "prepublishOnly": "yarn test"
   },
   "dependencies": {
-    "@assettler/core": "^0.4.0",
+    "@assettler/core": "^0.5.0",
     "@deflock/crypto": "^0.1.0",
     "@deflock/path": "^0.1.0",
     "@modular-css/processor": "^22.1.4",
