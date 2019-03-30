@@ -40,7 +40,10 @@ export default class PathResolverPlugin {
             }
 
             for (const type of ['js', 'css', null]) {
-                const fullpath = pathResolver.absolute(file, srcdir, type, {isFromDir: true});
+                const fullpath = pathResolver.absolute(file, srcdir, {
+                    aliasType: type,
+                    isFromDir: true,
+                });
 
                 if (fullpath && String.prototype.indexOf.call(fullpath, basedir) === 0) {
                     try {
