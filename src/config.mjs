@@ -37,7 +37,7 @@ export function create(env, entries, paths, options = {}) {
         filename: '[name].[chunkhash:12].js',
         publicPath: options['publicUrl'] || '/',
         chunkFilename: '[id].[chunkhash:12].js',
-        jsonpFunction: options['jsonp_function_name'] || '__APWJP',
+        jsonpFunction: options['jsonp_function_name'] || '__JP',
         pathinfo: isDev,
         devtoolModuleFilenameTemplate: info => nodepath.relative(paths.rootDir, info.absoluteResourcePath),
     };

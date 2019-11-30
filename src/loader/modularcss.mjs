@@ -40,7 +40,7 @@ export default async function (source) {
     let map;
 
     try {
-        map = await readSelectorsMap(selectorsMapFile);
+        map = await readCorrectJson(selectorsMapFile);
     } catch (e) {
     }
 
@@ -72,17 +72,40 @@ export default async function (source) {
         .catch(done);
 }
 
-/**
- * @param {string} file
- * @returns {Promise<*>}
- */
-async function readSelectorsMap(file) {
-    return new Promise((resolve, reject) => {
-        nodefs.readFile(file, (err, content) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(JSON.parse(content));
+async function readCorrectJson(file) {
+    async function readFile() {
+        return new Promise((resolve, reject) => {
+            nodefs.readFile(file, (err, content) => {
+                if (err) {
+                    reject(err);
+                }
+                let json;
+                try {
+                    json = JSON.parse(content);
+                }
+                catch (e) {
+                    resolve(null);
+                }
+                resolve(json);
+            });
         });
+    }
+    return new Promise((resolve, reject) => {
+        function schedule(attempt = 0) {
+            if (attempt > 100) {
+                return reject(new Error('JSON file cannot be read'));
+            }
+
+            setTimeout(async () => {
+                const result = await readFile();
+                if (result == null) {
+                    schedule(attempt + 1);
+                }
+                else {
+                    resolve(result);
+                }
+            }, attempt);
+        }
+        schedule();
     });
 }
